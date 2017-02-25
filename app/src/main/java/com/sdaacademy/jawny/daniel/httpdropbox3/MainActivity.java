@@ -10,8 +10,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String DROP_BOX = "DropBox";
-
     @BindView(R.id.list)
     ListView mList;
 
