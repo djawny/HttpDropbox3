@@ -28,9 +28,16 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
     protected GetFilesListResult doInBackground(String... params) {
         GetFilesListResult result = new GetFilesListResult();
         try {
-            JSONObject jsonObject = sentRequest();
-            result.setJsonObject(jsonObject);
-            result.setSuccess(true);
+            Response response = sentRequest();
+            int statusCode = response.code();
+            if (statusCode >= 200 && statusCode <= 299) {
+                JSONObject jsonObject = new JSONObject(response.body().string());
+                result.setJsonObject(jsonObject);
+                result.setSuccess(true);
+            } else {
+                result.setErrorMessage(response.body().string());
+                result.setSuccess(false);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             result.setErrorMessage("Błąd sieci");
@@ -78,7 +85,7 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
         }
     }
 
-    private JSONObject sentRequest() throws IOException, JSONException {
+    private Response sentRequest() throws IOException, JSONException {
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         String json = new JSONObject().put("path", "").toString();
         RequestBody body = RequestBody.create(jsonMediaType, json);
@@ -89,7 +96,6 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
                 .post(body)
                 .build();
         OkHttpClient client = new OkHttpClient();
-        Response response = client.newCall(request).execute();
-        return new JSONObject(response.body().string());
+        return client.newCall(request).execute();
     }
 }
