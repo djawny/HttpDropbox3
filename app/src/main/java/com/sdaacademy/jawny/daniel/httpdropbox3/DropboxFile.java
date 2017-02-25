@@ -2,6 +2,24 @@ package com.sdaacademy.jawny.daniel.httpdropbox3;
 
 public class DropboxFile {
     private String name;
+    private String path;
+    private String tag;
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public String getName() {
         return name;
