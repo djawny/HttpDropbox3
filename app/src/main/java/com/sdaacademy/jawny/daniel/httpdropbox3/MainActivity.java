@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showToast(String message) {
-//        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setPositiveButton("Ok", null)
