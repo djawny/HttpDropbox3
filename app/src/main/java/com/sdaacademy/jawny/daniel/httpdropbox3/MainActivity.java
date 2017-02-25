@@ -3,6 +3,7 @@ package com.sdaacademy.jawny.daniel.httpdropbox3;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import org.json.JSONException;
@@ -38,7 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-
+            try {
+                return sentRequest();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
@@ -51,26 +58,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
-
+            Log.i(DROP_BOX, jsonObject.toString());
         }
 
-        private String sentPost() throws IOException, JSONException {
+        private JSONObject sentRequest() throws IOException, JSONException {
             MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
-            OkHttpClient client = new OkHttpClient();
-            String url = "https://api.dropboxapi.com/2/files/list_folder";
-            JSONObject json = new JSONObject();
-            json.put("path", "");
-            String jsonStr = json.toString();
-
-            RequestBody body = RequestBody.create(jsonMediaType, jsonStr);
+            String json = new JSONObject().put("path", "").toString();
+            RequestBody body = RequestBody.create(jsonMediaType, json);
             Request request = new Request.Builder()
                     .addHeader("Authorization", "Bearer 3TS3KjVdr6AAAAAAAAAAFJ1CyfWp14sQeIAppj6Mf9N4t37r3LgLDalWWXvzYbHm")
                     .addHeader("Content-Type", "application/json")
-                    .url(url)
+                    .url("https://api.dropboxapi.com/2/files/list_folder")
                     .post(body)
                     .build();
+            OkHttpClient client = new OkHttpClient();
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            return new JSONObject(response.body().string());
         }
     }
 
