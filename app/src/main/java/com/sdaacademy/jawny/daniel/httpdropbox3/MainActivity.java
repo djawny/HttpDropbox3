@@ -4,12 +4,16 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,12 +30,17 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.list)
     ListView mList;
 
+    private ArrayAdapter<DropboxFile> listAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        listAdapter = new ArrayAdapter<DropboxFile>(this, android.R.layout.simple_dropdown_item_1line);
+        mList.setAdapter(listAdapter);
 
+        new GetFilesListTask().execute();
     }
 
     public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
@@ -48,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
+        private List<DropboxFile> convert(JSONArray array) {
+            ArrayList<DropboxFile> list = new ArrayList<>();
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.optJSONObject(i);
+                DropboxFile dropboxFile = new DropboxFile();
+                dropboxFile.setName(jsonObject.optString("name"));
+                list.add(dropboxFile);
+            }
+            return list;
+        }
+
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
@@ -58,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
             Log.i(DROP_BOX, jsonObject.toString());
+
+            JSONArray entries = jsonObject.optJSONArray("entries");
+            List<DropboxFile> dropboxFiles = convert(entries);
+            listAdapter.addAll(dropboxFiles);
         }
 
         private JSONObject sentRequest() throws IOException, JSONException {
