@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private String lastFolderPath = "";
+    private List folders = new ArrayList<String>();
 
     @BindView(R.id.list)
     ListView mList;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        folders.add("");
         setListAdapter();
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
