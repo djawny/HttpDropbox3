@@ -84,8 +84,6 @@ public class DownloadFileTask extends AsyncTask<DropboxFile, String, DownloadFil
             result.setErrorMessage("Błąd sieci");
             result.setSuccess(false);
         }
-
-
         return result;
     }
 
