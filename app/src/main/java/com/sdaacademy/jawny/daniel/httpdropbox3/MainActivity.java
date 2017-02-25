@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,10 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private List<String> folders = new ArrayList<>();
+    StringBuilder path = new StringBuilder();
+
+    @BindView(R.id.path)
+    TextView mPath;
 
     @BindView(R.id.list)
     ListView mList;
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     getFilesListTask = new GetFilesListTask();
                     getFilesListTask.setMainActivity(MainActivity.this);
                     getFilesListTask.execute(file.getPath());
+                    displayPath();
                 }
 
             }
@@ -47,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
         getFilesListTask = new GetFilesListTask();
         getFilesListTask.setMainActivity(this);
         getFilesListTask.execute(folders.get(folders.size() - 1));
+    }
+
+    private void displayPath() {
+        path.setLength(0);
+        path.append("Dropbox");
+        for (String folder : folders) {
+            path.append(">");
+            path.append(folder);
+        }
+        mPath.setText(path);
     }
 
     @Override
@@ -66,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
             getFilesListTask = new GetFilesListTask();
             getFilesListTask.setMainActivity(this);
             getFilesListTask.execute(folders.get(folders.size() - 1));
+            displayPath();
         }
     }
 

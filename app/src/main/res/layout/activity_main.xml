@@ -10,8 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.sdaacademy.jawny.daniel.httpdropbox3.MainActivity">
 
+    <TextView
+        android:id="@+id/path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Dropbox"/>
+
     <ListView
         android:id="@+id/list"
+        android:layout_below="@id/path"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:smoothScrollbar="true">
