@@ -58,10 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayPath() {
         path.setLength(0);
         path.append("Dropbox");
-        for (String folder : folders) {
-            path.append(">");
-            path.append(folder);
-        }
+        path.append(folders.get(folders.size() - 1));
         mPath.setText(path);
     }
 
