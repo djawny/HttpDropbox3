@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         listAdapter.addAll(dropboxFiles);
     }
 
-    public void showTosast(String message) {
+    public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

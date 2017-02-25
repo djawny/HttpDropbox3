@@ -16,7 +16,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListTask.GetFilesListResult> {
+public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListResult> {
 
     private MainActivity mainActivity;
 
@@ -73,7 +73,7 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListTas
             }
         } else {
             if (mainActivity != null) {
-                mainActivity.showTosast(result.getErrorMessage());
+                mainActivity.showToast(result.getErrorMessage());
             }
         }
     }
@@ -91,35 +91,5 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListTas
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
         return new JSONObject(response.body().string());
-    }
-
-    public class GetFilesListResult {
-        private JSONObject jsonObject;
-        private boolean isSuccess;
-        private String errorMessage;
-
-        public JSONObject getJsonObject() {
-            return jsonObject;
-        }
-
-        public void setJsonObject(JSONObject jsonObject) {
-            this.jsonObject = jsonObject;
-        }
-
-        public boolean isSuccess() {
-            return isSuccess;
-        }
-
-        public void setSuccess(boolean success) {
-            isSuccess = success;
-        }
-
-        public String getErrorMessage() {
-            return errorMessage;
-        }
-
-        public void setErrorMessage(String errorMessage) {
-            this.errorMessage = errorMessage;
-        }
     }
 }
