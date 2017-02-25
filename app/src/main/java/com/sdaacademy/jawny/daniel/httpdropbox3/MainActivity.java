@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -44,5 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setFiles(List<DropboxFile> dropboxFiles) {
         listAdapter.addAll(dropboxFiles);
+    }
+
+    public void showTosast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

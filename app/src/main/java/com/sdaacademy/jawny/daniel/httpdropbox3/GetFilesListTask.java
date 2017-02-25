@@ -26,7 +26,7 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListTas
 
     @Override
     protected GetFilesListResult doInBackground(String... params) {
-        GetFilesListResult result=new GetFilesListResult();
+        GetFilesListResult result = new GetFilesListResult();
         try {
             JSONObject jsonObject = sentRequest();
             result.setJsonObject(jsonObject);
@@ -65,10 +65,16 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListTas
     protected void onPostExecute(GetFilesListResult result) {
         super.onPostExecute(result);
 
-        JSONArray entries = result.getJsonObject().optJSONArray("entries");
-        List<DropboxFile> dropboxFiles = convert(entries);
-        if (mainActivity != null) {
-            mainActivity.setFiles(dropboxFiles);
+        if (result.isSuccess()) {
+            JSONArray entries = result.getJsonObject().optJSONArray("entries");
+            List<DropboxFile> dropboxFiles = convert(entries);
+            if (mainActivity != null) {
+                mainActivity.setFiles(dropboxFiles);
+            }
+        } else {
+            if (mainActivity != null) {
+                mainActivity.showTosast(result.getErrorMessage());
+            }
         }
     }
 
