@@ -40,18 +40,27 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DropboxFile file = (DropboxFile) parent.getItemAtPosition(position);
                 if (file.getTag().equals("folder")) {
-                    folders.add(file.getPath());
-                    getFilesListTask = new GetFilesListTask();
-                    getFilesListTask.setMainActivity(MainActivity.this);
-                    getFilesListTask.execute(file.getPath());
-                    displayPath();
+                    getFiles(file.getPath());
+                } else {
+                    downloadFile(file);
                 }
-
             }
         });
         getFilesListTask = new GetFilesListTask();
         getFilesListTask.setMainActivity(this);
         getFilesListTask.execute(folders.get(folders.size() - 1));
+    }
+
+    private void downloadFile(DropboxFile file) {
+        new DownloadFileTask(this).execute(file);
+    }
+
+    private void getFiles(String filePath) {
+        folders.add(filePath);
+        getFilesListTask = new GetFilesListTask();
+        getFilesListTask.setMainActivity(MainActivity.this);
+        getFilesListTask.execute(filePath);
+        displayPath();
     }
 
     private void displayPath() {
