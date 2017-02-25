@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<String> folders = new ArrayList<String>();
+    private List<String> folders = new ArrayList<>();
 
     @BindView(R.id.list)
     ListView mList;
@@ -47,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         });
         getFilesListTask = new GetFilesListTask();
         getFilesListTask.setMainActivity(this);
-        int lastFolder = folders.size() - 1;
-        getFilesListTask.execute(folders.get(lastFolder));
+        getFilesListTask.execute(folders.get(folders.size() - 1));
     }
 
     @Override
@@ -61,14 +59,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        int lastFolder = folders.size() - 1;
-        if (folders.get(lastFolder).equals("")) {
+        if (folders.get(folders.size() - 1).equals("")) {
             super.onBackPressed();
         } else {
-            folders.remove(lastFolder);
+            folders.remove(folders.size() - 1);
             getFilesListTask = new GetFilesListTask();
             getFilesListTask.setMainActivity(this);
-            getFilesListTask.execute(folders.get(lastFolder));
+            getFilesListTask.execute(folders.get(folders.size() - 1));
         }
     }
 
