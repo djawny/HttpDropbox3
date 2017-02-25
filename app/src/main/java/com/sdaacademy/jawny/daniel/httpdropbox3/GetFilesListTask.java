@@ -1,7 +1,6 @@
 package com.sdaacademy.jawny.daniel.httpdropbox3;
 
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +16,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
+public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListTask.GetFilesListResult> {
 
     private MainActivity mainActivity;
 
@@ -26,15 +25,22 @@ public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
     }
 
     @Override
-    protected JSONObject doInBackground(String... params) {
+    protected GetFilesListResult doInBackground(String... params) {
+        GetFilesListResult result=new GetFilesListResult();
         try {
-            return sentRequest();
+            JSONObject jsonObject = sentRequest();
+            result.setJsonObject(jsonObject);
+            result.setSuccess(true);
         } catch (IOException e) {
             e.printStackTrace();
+            result.setErrorMessage("Błąd sieci");
+            result.setSuccess(false);
         } catch (JSONException e) {
             e.printStackTrace();
+            result.setErrorMessage("Błąd JSON");
+            result.setSuccess(false);
         }
-        return null;
+        return result;
     }
 
     private List<DropboxFile> convert(JSONArray array) {
@@ -56,10 +62,10 @@ public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
     }
 
     @Override
-    protected void onPostExecute(JSONObject jsonObject) {
-        super.onPostExecute(jsonObject);
+    protected void onPostExecute(GetFilesListResult result) {
+        super.onPostExecute(result);
 
-        JSONArray entries = jsonObject.optJSONArray("entries");
+        JSONArray entries = result.getJsonObject().optJSONArray("entries");
         List<DropboxFile> dropboxFiles = convert(entries);
         if (mainActivity != null) {
             mainActivity.setFiles(dropboxFiles);
@@ -79,5 +85,35 @@ public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
         OkHttpClient client = new OkHttpClient();
         Response response = client.newCall(request).execute();
         return new JSONObject(response.body().string());
+    }
+
+    public class GetFilesListResult {
+        private JSONObject jsonObject;
+        private boolean isSuccess;
+        private String errorMessage;
+
+        public JSONObject getJsonObject() {
+            return jsonObject;
+        }
+
+        public void setJsonObject(JSONObject jsonObject) {
+            this.jsonObject = jsonObject;
+        }
+
+        public boolean isSuccess() {
+            return isSuccess;
+        }
+
+        public void setSuccess(boolean success) {
+            isSuccess = success;
+        }
+
+        public String getErrorMessage() {
+            return errorMessage;
+        }
+
+        public void setErrorMessage(String errorMessage) {
+            this.errorMessage = errorMessage;
+        }
     }
 }
