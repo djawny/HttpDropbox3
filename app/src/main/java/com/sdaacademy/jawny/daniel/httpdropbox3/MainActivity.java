@@ -5,7 +5,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.list)
     ListView mList;
 
-    private ArrayAdapter<DropboxFile> listAdapter;
+    private FileListAdapter listAdapter;
     private GetFilesListTask getFilesListTask;
 
     @Override
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListAdapter() {
-        listAdapter = new ArrayAdapter<DropboxFile>(this, android.R.layout.simple_dropdown_item_1line);
+        listAdapter = new FileListAdapter(this, R.layout.list_row);
         mList.setAdapter(listAdapter);
     }
 

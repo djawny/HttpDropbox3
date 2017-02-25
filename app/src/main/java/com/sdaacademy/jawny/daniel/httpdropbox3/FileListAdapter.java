@@ -9,12 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class FileListAdapter extends ArrayAdapter<DropboxFile> {
 
-    public FileListAdapter(Context context, ArrayList<DropboxFile> list) {
-        super(context, R.layout.list_row, list);
+    public FileListAdapter(Context context, int resource) {
+        super(context, resource);
     }
 
     @NonNull
