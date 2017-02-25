@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.list)
     ListView mList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
