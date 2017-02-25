@@ -100,6 +100,4 @@ public class MainActivity extends AppCompatActivity {
             return new JSONObject(response.body().string());
         }
     }
-
-
 }
