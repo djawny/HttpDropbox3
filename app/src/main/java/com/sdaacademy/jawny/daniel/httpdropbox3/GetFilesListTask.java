@@ -19,10 +19,10 @@ import okhttp3.Response;
 
 public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
 
-    private ArrayAdapter<DropboxFile> listAdapter;
+    private MainActivity mainActivity;
 
-    public GetFilesListTask(ArrayAdapter<DropboxFile> listAdapter) {
-        this.listAdapter = listAdapter;
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
 
         JSONArray entries = jsonObject.optJSONArray("entries");
         List<DropboxFile> dropboxFiles = convert(entries);
-        listAdapter.addAll(dropboxFiles);
+        mainActivity.setFiles(dropboxFiles);
     }
 
     private JSONObject sentRequest() throws IOException, JSONException {
