@@ -28,7 +28,7 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
     protected GetFilesListResult doInBackground(String... params) {
         GetFilesListResult result = new GetFilesListResult();
         try {
-            Response response = sentRequest();
+            Response response = sentRequest(params[0]);
             int statusCode = response.code();
             if (statusCode >= 200 && statusCode <= 299) {
                 JSONObject jsonObject = new JSONObject(response.body().string());
@@ -85,9 +85,10 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
         }
     }
 
-    private Response sentRequest() throws IOException, JSONException {
+    private Response sentRequest(String param) throws IOException, JSONException {
+        if (param == null) param = "";
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
-        String json = new JSONObject().put("path", "").toString();
+        String json = new JSONObject().put("path", param).toString();
         RequestBody body = RequestBody.create(jsonMediaType, json);
         Request request = new Request.Builder()
                 .addHeader("Authorization", "Bearer 3TS3KjVdr6AAAAAAAAAAFJ1CyfWp14sQeIAppj6Mf9N4t37r3LgLDalWWXvzYbHm")

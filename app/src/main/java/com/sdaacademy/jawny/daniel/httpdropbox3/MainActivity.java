@@ -1,7 +1,10 @@
 package com.sdaacademy.jawny.daniel.httpdropbox3;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setListAdapter();
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DropboxFile file = (DropboxFile) parent.getItemAtPosition(position);
+
+            }
+        });
         getFilesListTask = new GetFilesListTask();
         getFilesListTask.setMainActivity(this);
         getFilesListTask.execute();
@@ -48,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("Ok", null)
+                .show();
     }
 }
