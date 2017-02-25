@@ -1,10 +1,10 @@
 package com.sdaacademy.jawny.daniel.httpdropbox3;
 
 public class DropboxFile {
+    private String id;
     private String name;
     private String path;
     private String tag;
-    private String id;
 
     public String getId() {
         return id;
