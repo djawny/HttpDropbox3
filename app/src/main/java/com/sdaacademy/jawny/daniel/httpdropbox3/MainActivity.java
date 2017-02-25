@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         listAdapter.addAll(dropboxFiles);
     }
 
-    public void showToast(String message) {
+    public void showError(String message) {
         new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setPositiveButton("Ok", null)

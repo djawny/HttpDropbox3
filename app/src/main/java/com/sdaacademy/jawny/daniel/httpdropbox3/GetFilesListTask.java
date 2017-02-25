@@ -82,7 +82,7 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
             }
         } else {
             if (mainActivity != null) {
-                mainActivity.showToast(result.getErrorMessage());
+                mainActivity.showError(result.getErrorMessage());
             }
         }
     }
