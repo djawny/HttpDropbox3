@@ -59,6 +59,7 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
             dropboxFile.setTag(jsonObject.optString(".tag"));
             dropboxFile.setName(jsonObject.optString("name"));
             dropboxFile.setPath(jsonObject.optString("path_lower"));
+            dropboxFile.setId(jsonObject.optString("id"));
             list.add(dropboxFile);
         }
         return list;
