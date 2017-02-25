@@ -28,7 +28,7 @@ public class FileListAdapter extends ArrayAdapter<DropboxFile> {
             imageView.setVisibility(View.VISIBLE);
 
         } else {
-            imageView.setVisibility(View.GONE);
+            imageView.setVisibility(View.INVISIBLE);
         }
         textView.setText(file.getName());
         return convertView;
