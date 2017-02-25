@@ -88,7 +88,6 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
     }
 
     private Response sentRequest(String param) throws IOException, JSONException {
-        if (param == null) param = "";
         MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
         String json = new JSONObject().put("path", param).toString();
         RequestBody body = RequestBody.create(jsonMediaType, json);

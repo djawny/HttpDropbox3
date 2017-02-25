@@ -32,12 +32,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DropboxFile file = (DropboxFile) parent.getItemAtPosition(position);
+                if (file.getTag().equals("folder")) {
+                    getFilesListTask = new GetFilesListTask();
+                    getFilesListTask.setMainActivity(MainActivity.this);
+                    getFilesListTask.execute(file.getPath());
+                }
 
             }
         });
         getFilesListTask = new GetFilesListTask();
         getFilesListTask.setMainActivity(this);
-        getFilesListTask.execute();
+        getFilesListTask.execute("");
     }
 
     @Override
