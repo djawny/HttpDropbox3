@@ -20,9 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setListAdapter();
+        new GetFilesListTask(listAdapter).execute();
+    }
+
+    private void setListAdapter() {
         listAdapter = new ArrayAdapter<DropboxFile>(this, android.R.layout.simple_dropdown_item_1line);
         mList.setAdapter(listAdapter);
-
-        new GetFilesListTask(listAdapter).execute();
     }
 }
