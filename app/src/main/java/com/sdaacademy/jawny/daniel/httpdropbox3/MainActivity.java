@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     ListView mList;
 
     private ArrayAdapter<DropboxFile> listAdapter;
+    private GetFilesListTask getFilesListTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +24,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setListAdapter();
-        GetFilesListTask task = new GetFilesListTask();
-        task.setMainActivity(this);
-        task.execute();
+        getFilesListTask = new GetFilesListTask();
+        getFilesListTask.setMainActivity(this);
+        getFilesListTask.execute();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (getFilesListTask != null) {
+            getFilesListTask.setMainActivity(null);
+        }
     }
 
     private void setListAdapter() {

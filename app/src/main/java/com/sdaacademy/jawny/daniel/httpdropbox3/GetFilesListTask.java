@@ -61,7 +61,9 @@ public class GetFilesListTask extends AsyncTask<String, Integer, JSONObject> {
 
         JSONArray entries = jsonObject.optJSONArray("entries");
         List<DropboxFile> dropboxFiles = convert(entries);
-        mainActivity.setFiles(dropboxFiles);
+        if (mainActivity != null) {
+            mainActivity.setFiles(dropboxFiles);
+        }
     }
 
     private JSONObject sentRequest() throws IOException, JSONException {
