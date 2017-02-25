@@ -16,6 +16,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String lastFolderPath = "";
+
     @BindView(R.id.list)
     ListView mList;
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DropboxFile file = (DropboxFile) parent.getItemAtPosition(position);
                 if (file.getTag().equals("folder")) {
+                    lastFolderPath = file.getPath();
                     getFilesListTask = new GetFilesListTask();
                     getFilesListTask.setMainActivity(MainActivity.this);
                     getFilesListTask.execute(file.getPath());
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         });
         getFilesListTask = new GetFilesListTask();
         getFilesListTask.setMainActivity(this);
-        getFilesListTask.execute("");
+        getFilesListTask.execute(lastFolderPath);
     }
 
     @Override
@@ -50,6 +53,18 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (getFilesListTask != null) {
             getFilesListTask.setMainActivity(null);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (lastFolderPath.equals("")) {
+            super.onBackPressed();
+        } else {
+            lastFolderPath = "";
+            getFilesListTask = new GetFilesListTask();
+            getFilesListTask.setMainActivity(this);
+            getFilesListTask.execute(lastFolderPath);
         }
     }
 
