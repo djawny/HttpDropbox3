@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setFiles(List<DropboxFile> dropboxFiles) {
+        listAdapter.clear();
         listAdapter.addAll(dropboxFiles);
     }
 
