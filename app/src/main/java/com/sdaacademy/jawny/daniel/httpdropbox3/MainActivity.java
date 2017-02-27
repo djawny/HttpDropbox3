@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -17,7 +16,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     private StringBuilder pathBuilder = new StringBuilder();
-    private String currentFolderName = "";
     private String currentPath = "";
 
     @BindView(R.id.path)
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DropboxFile file = (DropboxFile) parent.getItemAtPosition(position);
                 if (file.getTag().equals("folder")) {
-                    currentFolderName = file.getName();
                     currentPath = file.getPath();
                     getFiles();
                 } else {
@@ -82,10 +79,8 @@ public class MainActivity extends AppCompatActivity {
         if (currentPath.equals("")) {
             super.onBackPressed();
         } else {
-            int lastIndexOf = currentPath.lastIndexOf(currentFolderName);
-            currentPath = currentPath.substring(0, lastIndexOf - 1);
-            lastIndexOf = currentPath.lastIndexOf("/");
-            currentFolderName = currentPath.substring(lastIndexOf + 1, currentPath.length());
+            int lastIndexOf = currentPath.lastIndexOf("/");
+            currentPath = currentPath.substring(0, lastIndexOf);
             getFiles();
         }
     }
