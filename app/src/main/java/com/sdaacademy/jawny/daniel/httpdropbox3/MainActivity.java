@@ -16,8 +16,9 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<String> folders = new ArrayList<>();
-    StringBuilder path = new StringBuilder();
+    private StringBuilder pathBuilder = new StringBuilder();
+    private String currentFolderName = "";
+    private String currentPath = "";
 
     @BindView(R.id.path)
     TextView mPath;
@@ -33,41 +34,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        folders.add("");
         setListAdapter();
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DropboxFile file = (DropboxFile) parent.getItemAtPosition(position);
                 if (file.getTag().equals("folder")) {
-                    getFiles(file.getPath());
+                    currentFolderName = file.getName();
+                    currentPath = file.getPath();
+                    getFiles();
                 } else {
                     downloadFile(file);
                 }
             }
         });
-        getFilesListTask = new GetFilesListTask();
-        getFilesListTask.setMainActivity(this);
-        getFilesListTask.execute(folders.get(folders.size() - 1));
+        getFiles();
     }
 
     private void downloadFile(DropboxFile file) {
         new DownloadFileTask(this).execute(file);
     }
 
-    private void getFiles(String filePath) {
-        folders.add(filePath);
+    private void getFiles() {
         getFilesListTask = new GetFilesListTask();
         getFilesListTask.setMainActivity(MainActivity.this);
-        getFilesListTask.execute(filePath);
+        getFilesListTask.execute(currentPath);
         displayPath();
     }
 
     private void displayPath() {
-        path.setLength(0);
-        path.append("Dropbox");
-        path.append(folders.get(folders.size() - 1));
-        mPath.setText(path);
+        pathBuilder.setLength(0);
+        pathBuilder.append("Dropbox");
+        pathBuilder.append(currentPath);
+        mPath.setText(pathBuilder);
     }
 
     @Override
@@ -80,14 +79,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (folders.get(folders.size() - 1).equals("")) {
+        if (currentPath.equals("")) {
             super.onBackPressed();
         } else {
-            folders.remove(folders.size() - 1);
-            getFilesListTask = new GetFilesListTask();
-            getFilesListTask.setMainActivity(this);
-            getFilesListTask.execute(folders.get(folders.size() - 1));
-            displayPath();
+            int lastIndexOf = currentPath.lastIndexOf(currentFolderName);
+            currentPath = currentPath.substring(0, lastIndexOf - 1);
+            lastIndexOf = currentPath.lastIndexOf("/");
+            currentFolderName = currentPath.substring(lastIndexOf + 1, currentPath.length());
+            getFiles();
         }
     }
 

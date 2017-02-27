@@ -56,10 +56,10 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
         for (int i = 0; i < array.length(); i++) {
             JSONObject jsonObject = array.optJSONObject(i);
             DropboxFile dropboxFile = new DropboxFile();
+            dropboxFile.setId(jsonObject.optString("id"));
             dropboxFile.setTag(jsonObject.optString(".tag"));
             dropboxFile.setName(jsonObject.optString("name"));
             dropboxFile.setPath(jsonObject.optString("path_lower"));
-            dropboxFile.setId(jsonObject.optString("id"));
             list.add(dropboxFile);
         }
         return list;
@@ -68,7 +68,6 @@ public class GetFilesListTask extends AsyncTask<String, Integer, GetFilesListRes
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-
     }
 
     @Override
