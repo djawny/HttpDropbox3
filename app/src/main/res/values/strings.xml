@@ -1,3 +1,4 @@
 <resources>
-    <string mName="app_name">HttpDropbox3</string>
+    <string name="app_name">HttpDropbox3</string>
+    <string name="dropbox">Dropbox</string>
 </resources>

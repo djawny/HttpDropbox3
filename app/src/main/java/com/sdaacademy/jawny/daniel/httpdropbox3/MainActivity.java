@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sdaacademy.jawny.daniel.httpdropbox3.adapter.FileListAdapter;
 import com.sdaacademy.jawny.daniel.httpdropbox3.model.DropboxFile;
 
 import java.util.List;

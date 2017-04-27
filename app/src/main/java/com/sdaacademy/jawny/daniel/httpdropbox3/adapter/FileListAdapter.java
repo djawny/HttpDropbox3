@@ -1,4 +1,4 @@
-package com.sdaacademy.jawny.daniel.httpdropbox3;
+package com.sdaacademy.jawny.daniel.httpdropbox3.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sdaacademy.jawny.daniel.httpdropbox3.R;
 import com.sdaacademy.jawny.daniel.httpdropbox3.model.DropboxFile;
 
 public class FileListAdapter extends ArrayAdapter<DropboxFile> {
