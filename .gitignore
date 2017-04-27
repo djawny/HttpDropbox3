@@ -4,7 +4,7 @@
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
 
-# Local configuration file (sdk path, etc)
+# Local configuration file (sdk mPath, etc)
 local.properties
 
 # Gradle generated files
@@ -17,7 +17,7 @@ local.properties
 .idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
-.idea/.name
+.idea/.mName
 .idea/compiler.xml
 .idea/copyright/profiles_settings.xml
 .idea/encodings.xml

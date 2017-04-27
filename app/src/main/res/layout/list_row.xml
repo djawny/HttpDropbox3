@@ -5,14 +5,14 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/image"
+        android:mId="@+mId/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:src="@drawable/ic_folder_open_black_32dp" />
 
     <TextView
-        android:id="@+id/text"
+        android:mId="@+mId/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

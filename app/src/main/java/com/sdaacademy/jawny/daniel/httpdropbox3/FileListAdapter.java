@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sdaacademy.jawny.daniel.httpdropbox3.model.DropboxFile;
+
 public class FileListAdapter extends ArrayAdapter<DropboxFile> {
 
     public FileListAdapter(Context context, int resource) {

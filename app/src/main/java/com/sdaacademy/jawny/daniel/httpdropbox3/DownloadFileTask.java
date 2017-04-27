@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.webkit.MimeTypeMap;
 
+import com.sdaacademy.jawny.daniel.httpdropbox3.model.DropboxFile;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

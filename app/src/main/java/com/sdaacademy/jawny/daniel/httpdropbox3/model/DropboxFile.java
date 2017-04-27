@@ -1,45 +1,45 @@
-package com.sdaacademy.jawny.daniel.httpdropbox3;
+package com.sdaacademy.jawny.daniel.httpdropbox3.model;
 
 public class DropboxFile {
-    private String id;
-    private String name;
-    private String path;
-    private String tag;
+    private String mId;
+    private String mName;
+    private String mPath;
+    private String mTag;
 
     public String getId() {
-        return id;
+        return mId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        mId = id;
     }
 
     public String getTag() {
-        return tag;
+        return mTag;
     }
 
     public void setTag(String tag) {
-        this.tag = tag;
+        mTag = tag;
     }
 
     public String getPath() {
-        return path;
+        return mPath;
     }
 
     public void setPath(String path) {
-        this.path = path;
+        mPath = path;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
     @Override
     public String toString() {
-        return name;
+        return mName;
     }
 }

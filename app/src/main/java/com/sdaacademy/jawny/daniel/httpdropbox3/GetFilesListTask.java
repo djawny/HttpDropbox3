@@ -2,6 +2,8 @@ package com.sdaacademy.jawny.daniel.httpdropbox3;
 
 import android.os.AsyncTask;
 
+import com.sdaacademy.jawny.daniel.httpdropbox3.model.DropboxFile;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
